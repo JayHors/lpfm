@@ -3,6 +3,9 @@ audio1.src = "Miki_Matsubara_-_Mayonaka_no_Door_Stay_With_Me.mp3";
 
 const container = document.getElementById("container");
 const canvas = document.getElementById("canvas");
+const moodXEle = document.querySelector("#moodX");
+const moodYEle = document.querySelector("#moodY");
+const intense = document.querySelector('#intense');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -17,7 +20,7 @@ analyser = audioCtx.createAnalyser();
 audioSource.connect(analyser);
 analyser.connect(audioCtx.destination);
 
-analyser.fftSize = 4096;
+analyser.fftSize = 1024;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 const barWidth = canvas.width / bufferLength;
@@ -30,15 +33,15 @@ function animate() {
     analyser.getByteFrequencyData(dataArray);
     let barHeight;
     for (let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i];
-        const red = (i * barHeight) / 100;
-        const green = i * 2;
-        const blue = barHeight / 4 - 12;
+        barHeight = dataArray[i] * intense.value;
+        const red = moodYEle.value;
+        const green = Math.trunc((moodYEle.value + moodXEle.value)/2);
+        const blue = moodXEle.value;
         ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
-        ctx.fillRect(x, y, barWidth, -barHeight - 5);
-        ctx.fillRect(x, y, barWidth, barHeight + 5);
+        ctx.fillRect(x, y, barWidth, -barHeight - 50);
+        ctx.fillRect(x, y, barWidth, barHeight + 50);
         x += barWidth;
-        y = Math.sin(x) * 10 + (canvas.height /2);
+        y = Math.sin(Math.PI * (x / canvas.width)*2) * 150 + (canvas.height / 2);
     }
 
     requestAnimationFrame(animate);

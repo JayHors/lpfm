@@ -4,15 +4,11 @@
   box-sizing: border-box;
 }
 
-button {
+#controls{
   position: absolute;
   z-index: 2;
 }
 
-button#pause{
-  position: absolute;
-  left: 30px;
-}
 
 #container {
   position: absolute;
