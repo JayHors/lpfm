@@ -1,5 +1,5 @@
 let audio1 = new Audio();
-audio1.src = "Miki_Matsubara_-_Mayonaka_no_Door_Stay_With_Me.mp3";
+audio1.src = "Isaac Riley - Another Ocean - 01 Dehydrated.mp3";
 
 const container = document.getElementById("container");
 const canvas = document.getElementById("canvas");
@@ -11,7 +11,9 @@ canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let audioCtx;
+
+audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let audioSource = null;
 let analyser = null;
 

@@ -7,8 +7,8 @@
   </head>
   <body>
     <div id="controls">
-      <button id="play" onclick="audio1.play()">Play</button>
-      <button id="pause" onclick="audio1.pause()">Pause</button>
+      <button id="play" onclick="audio1.play(); audioCtx.resume();">Play</button>
+      <button id="pause" onclick="audio1.pause(); audioCtx.suspend();">Pause</button>
       <input type="range" name="moodX" id="moodX" min="30" max="240" value="135" step="5">
       <input type="range" name="moodY" id="moodY" min="30" max="240" value="135" step="5">
       <input type="range" name="intense" id="intense" min=".2" max="2.2" value="1.1" step=".1">
