@@ -6,6 +6,7 @@ const canvas = document.getElementById("canvas");
 const moodXEle = document.querySelector("#moodX");
 const moodYEle = document.querySelector("#moodY");
 const intense = document.querySelector('#intense');
+const mimiEQ = document.querySelector('#mimiEQ');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -34,16 +35,18 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     analyser.getByteFrequencyData(dataArray);
     let barHeight;
+    ctx.fillStyle = `rgb(${dataArray[31] * intense.value}, ${dataArray[63]* intense.value}, ${dataArray[127] * intense.value} )`;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i] * intense.value;
         const red = moodYEle.value;
-        const green = Math.trunc((moodYEle.value + moodXEle.value)/2);
+        const green = Math.trunc((moodYEle.value + moodXEle.value) / 2);
         const blue = moodXEle.value;
         ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
         ctx.fillRect(x, y, barWidth, -barHeight - 50);
         ctx.fillRect(x, y, barWidth, barHeight + 50);
         x += barWidth;
-        y = Math.sin(Math.PI * (x / canvas.width)*2) * 150 + (canvas.height / 2);
+        y = Math.sin(Math.PI * (x / canvas.width) * 2) * (150 * mimiEQ.value) + (canvas.height / 2);
     }
 
     requestAnimationFrame(animate);
